@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import * as Sentry from '@sentry/node';
 import * as Tracing from '@sentry/tracing';
 import app from '../../express-app';
@@ -21,8 +22,11 @@ if (config.common.env === PRODUCTION) {
       const exception = hint.originalException;
 
       if (exception && exception.message) {
-        // eslint-disable-next-line no-param-reassign
-        event.fingerprint = ['{{ default }}', String(exception.message)];
+        if (exception.message.includes('invalid input syntax for type')) {
+          event.fingerprint = ['invalid input syntax for type'];
+        } else {
+          event.fingerprint = ['{{ default }}', String(exception.message)];
+        }
       }
       return event;
     },
