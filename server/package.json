@@ -57,6 +57,7 @@
     "serve-favicon": "^2.5.0",
     "uniqid": "^5.4.0",
     "uuid": "^9.0.0",
+    "xss": "^1.0.15",
     "yup": "^0.32.11"
   },
   "devDependencies": {

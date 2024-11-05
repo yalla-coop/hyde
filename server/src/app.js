@@ -16,6 +16,7 @@ import {
   csrfProtection,
   createCSRFToken,
   timeoutMonitor,
+  detectAndBlockXSS,
 } from './api/middlewares';
 import { Sentry } from './services/error-handler';
 
@@ -28,6 +29,7 @@ app.use(Sentry.Handlers.requestHandler());
 // TracingHandler creates a trace for every incoming request
 app.use(Sentry.Handlers.tracingHandler());
 
+app.use(detectAndBlockXSS);
 app.use(logger('dev'));
 
 if (config.common.env === PRODUCTION) {
