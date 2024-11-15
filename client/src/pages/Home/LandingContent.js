@@ -73,7 +73,7 @@ const LandingContent = ({ uniqueSlug }) => {
               publicOrg.uniqueSlug
             )}
           >
-            {logo && <img src={logo} alt="logo" />}
+            {logo && <img src={logo} alt="hyde-logo" />}
           </S.LogoContainer>
           <S.HeaderText>
             {fetchError ? (

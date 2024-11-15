@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import theme from '../../../theme';
 
-export const Wrapper = styled('div')`
+export const Container = styled('div')`
   flex: 1;
   width: 100%;
   height: 100%;
@@ -12,7 +12,7 @@ export const Wrapper = styled('div')`
   }
 `;
 
-export const ButtonWrapper = styled('div')`
+export const Wrapper = styled('div')`
   display: grid;
   width: 100%;
   margin-top: 8px;
@@ -26,7 +26,7 @@ export const ButtonWrapper = styled('div')`
   }
 `;
 
-export const Button = styled('button')`
+export const LanguageWrapper = styled('div')`
   display: flex;
   flex-wrap: wrap;
   outline: none;

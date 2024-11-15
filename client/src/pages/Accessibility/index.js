@@ -69,7 +69,7 @@ const Accessibility = () => {
               mtT="4"
               style={{ maxWidth: '300px', width: '100%' }}
               tips={[
-                <T.H3 color="white">
+                <T.P color="white">
                   {t(
                     'common.section.accessibility.tip1',
                     common.section.accessibility.tip1
@@ -87,7 +87,7 @@ const Accessibility = () => {
                     )}
                   </T.Link>{' '}
                   .
-                </T.H3>,
+                </T.P>,
               ]}
               startingColor={0}
               mb="0"
@@ -97,7 +97,7 @@ const Accessibility = () => {
               mtT="0"
               style={{ maxWidth: '300px', width: '100%' }}
               tips={[
-                <T.H3 color="secondaryMain">
+                <T.P color="secondaryMain">
                   {t(
                     'common.section.accessibility.tip2',
                     common.section.accessibility.tip2
@@ -128,7 +128,7 @@ const Accessibility = () => {
                     )}{' '}
                   </T.Link>{' '}
                   .
-                </T.H3>,
+                </T.P>,
               ]}
               startingColor={1}
               mb="0"
