@@ -149,6 +149,8 @@ const Dropdown = ({
             )
           }
           showSearch={addNew || search}
+          aria-label={label}
+          aria-expanded={open}
         >
           {renderOptions()}
         </AntdSelect>
