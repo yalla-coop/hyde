@@ -1,20 +1,21 @@
-import { useState, useEffect, useRef } from 'react';
-import { generatePath } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
 import ReactGA from 'react-ga4';
-import Step from '../../components/Steps';
-import { Typography as T } from '../../components';
-import { useSteps } from '../../context/steps';
-import { navRoutes as n, common } from '../../constants';
-import LandingContent from './LandingContent';
-import { stageTypes } from './../../constants/data-types';
+import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
+import { generatePath } from 'react-router-dom';
+import { Typography as T } from '../../components';
+import HelpButton from '../../components/HelpButton';
 import Icon from '../../components/Icon';
 import Image from '../../components/Image';
-import HelpButton from '../../components/HelpButton';
+import Step from '../../components/Steps';
 import TextWithIcon from '../../components/TextWithIcon';
-import { usePublicOrg } from './../../context/public-org';
-import * as S from './style';
+import { common, navRoutes as n } from '../../constants';
+import { useSteps } from '../../context/steps';
 import { useLanguage } from '../../helpers';
+import { stageTypes } from './../../constants/data-types';
+import { usePublicOrg } from './../../context/public-org';
+import LandingContent from './LandingContent';
+import * as S from './style';
 
 const Home = () => {
   const { t } = useTranslation();
@@ -53,7 +54,7 @@ const Home = () => {
   const decideRoute = (step) =>
     generatePath(n.GENERAL.STEP_ORG, {
       uniqueSlug: publicOrg?.uniqueSlug,
-      id: step.id,
+      slug: step.slug,
     });
 
   useEffect(() => {
@@ -107,6 +108,14 @@ const Home = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{`Universal Credit Support: Home`}</title>
+        <meta
+          name="description"
+          content={`Are you trying to work out how you actually claim for Universal Credit and feeling a bit lost? Don't worry, we've got you!`}
+        />
+        <meta name="keywords" content={'Universal Credit Support'} />
+      </Helmet>
       <LandingContent uniqueSlug={uniqueSlug} />
 
       {/* BEFORE CLAIMING */}

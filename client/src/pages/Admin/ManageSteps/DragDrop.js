@@ -1,9 +1,8 @@
-import React from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useNavigate } from 'react-router-dom';
-import { Grid as G, Typography as T, Icon } from '../../../components';
-import { buttonStyle } from './style';
+import { Grid as G, Icon, Typography as T } from '../../../components';
 import { navRoutes } from '../../../constants';
+import { buttonStyle } from './style';
 
 const onDragEnd = (result, columns, setColumns) => {
   if (!result.destination) return;
@@ -96,8 +95,8 @@ function DragDrop({
                                       onClick={() =>
                                         navigate(
                                           navRoutes.SUPER_ADMIN.EDIT_STEP.replace(
-                                            ':id',
-                                            item.id
+                                            ':slug',
+                                            item.slug
                                           )
                                         )
                                       }

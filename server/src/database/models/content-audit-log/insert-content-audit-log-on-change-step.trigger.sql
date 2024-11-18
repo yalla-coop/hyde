@@ -7,11 +7,13 @@ CREATE OR REPLACE FUNCTION insert_content_audit_log_on_change_step_fn()
     INSERT INTO content_audit_log AS cal (
       user_id,
       step_id,
+      step_slug,
       type,
       updated_content
     ) VALUES (
       COALESCE(NEW.updated_by, NEW.created_by),
       NEW.id,
+      NEW.slug,
       CASE
         WHEN TG_OP = 'INSERT' THEN 'ADD'
         WHEN TG_OP = 'DELETE' THEN 'DELETE'

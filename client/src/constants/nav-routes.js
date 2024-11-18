@@ -1,7 +1,7 @@
 const GENERAL = {
   HOME: '/',
   HOME_ORG: '/:uniqueSlug',
-  STEP_ORG: '/:uniqueSlug/steps/:id',
+  STEP_ORG: '/:uniqueSlug/steps/:slug',
   UNAUTHORIZED: '/unauthorized',
   FORGET_PASSWORD: '/admin/forget-password',
   RESET_PASSWORD: '/admin/reset-password/:token',
@@ -33,7 +33,7 @@ const ADMIN = {
 
 const SUPER_ADMIN = {
   DASHBOARD: `${admin}/dashboard`,
-  EDIT_STEP: `${admin}/edit-step/:id`,
+  EDIT_STEP: `${admin}/edit-step/:slug`,
   HOME: `${admin}/home`,
   ADD_UPDATE_CONTENT: `${admin}/content`,
   EDIT_LANDING_PAGE: `${admin}/edit-landing-page`,

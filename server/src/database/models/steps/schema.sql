@@ -5,6 +5,7 @@ CREATE TABLE "steps" (
   "stage" stage_types,
   "step_order" INT,
   "title" TEXT,
+  "slug" TEXT UNIQUE,
   "description" TEXT,
   "page_title" TEXT,
   "page_description" TEXT,
@@ -39,7 +40,6 @@ CREATE TABLE "steps" (
   "top_tip" TEXT,
   "other_tips" TEXT[],
   "is_optional" BOOLEAN default false,
-
   "created_by" INTEGER REFERENCES users(id),
   "created_at" TIMESTAMP NOT NULL DEFAULT NOW(),
   "updated_by" INTEGER REFERENCES users(id),
@@ -50,3 +50,5 @@ CREATE TRIGGER set_timestamp
 BEFORE UPDATE ON "steps"
 FOR EACH ROW
 EXECUTE PROCEDURE trigger_set_timestamp();
+
+CREATE INDEX "idx_steps_slug" ON "steps" ("slug");
