@@ -59,7 +59,7 @@ export const SectionHeader = styled.div`
   width: 100%;
 `;
 
-export const CloseWrapper = styled.button`
+export const CloseWrapper = styled.div`
   background: none;
   cursor: pointer;
   border: none;

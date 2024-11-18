@@ -7,6 +7,7 @@ import { useMediaQuery } from 'react-responsive';
 import theme from '../../../theme';
 import { useTranslation } from 'react-i18next';
 import { types, common } from '../../../constants/';
+import ReactGA from 'react-ga4';
 
 const props = {
   weight: 'medium',
@@ -37,11 +38,17 @@ export const LanguageSelector = ({ hide, handleHide }) => {
   const changeLanguage = ({ lng }) => {
     i18n.changeLanguage(types.languageCodes[lng]);
     handleHide();
+
+    if (process.env.NODE_ENV === 'production') {
+      ReactGA.event('change_language', {
+        selected_language: lng,
+      });
+    }
   };
 
   const Selector = (
-    <S.Wrapper onClick={handleHide}>
-      <S.ButtonWrapper onClick={(e) => e.stopPropagation()}>
+    <S.Container onClick={handleHide}>
+      <S.Wrapper onClick={(e) => e.stopPropagation()}>
         <BasicInput
           handleChange={(val) => setSearch(val)}
           label={t(
@@ -55,13 +62,20 @@ export const LanguageSelector = ({ hide, handleHide }) => {
             common.section.changeLanguage.placeholder
           )}
           suffix={<Icon icon="search" color="neutralMain" />}
+          aria-label={t(
+            'common.section.changeLanguage.placeholder',
+            common.section.changeLanguage.placeholder
+          )}
         />
-      </S.ButtonWrapper>
-      <S.ButtonWrapper>
+      </S.Wrapper>
+      <S.Wrapper>
         {languages
           .map(([lng, code]) => {
             return (
-              <S.Button onClick={() => changeLanguage({ lng })} key={code}>
+              <S.LanguageWrapper
+                onClick={() => changeLanguage({ lng })}
+                key={code}
+              >
                 <TextWithIcon
                   text={lng}
                   iconProps={{
@@ -71,12 +85,12 @@ export const LanguageSelector = ({ hide, handleHide }) => {
                   }}
                   {...props}
                 />
-              </S.Button>
+              </S.LanguageWrapper>
             );
           })
           .slice(0, sliceTo)}
-      </S.ButtonWrapper>
-    </S.Wrapper>
+      </S.Wrapper>
+    </S.Container>
   );
   return hide === true ? null : Selector;
 };

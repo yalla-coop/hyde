@@ -1,0 +1,74 @@
+name: "🐞 SLA Bug Report"
+description: "File a bug/issue."
+title: "Replace with Your Title"
+labels: [bug, sla]
+assignees:
+  - RamyAlshurafa
+  - yalla-coop-sla
+body:
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "Please select the priority level by adding one of the following labels to this issue?"
+      description: "\n
+        **priority-1 issues** are **urgent** and require immediate attention due to their severe impact on the system's functionality, security, or stability. These bugs may cause crashes, data loss, security breaches, or other critical issues that prevent the system from functioning as intended. \n
+    \n
+    \n
+        **priority-2 issues** are of **high priority** and need to be addressed within the next week. While they may not have the same level of urgency as critical bugs, high-priority bugs render a core feature unusable, can impact the user experience, cause major functionality disruptions, or result in data inconsistencies. \n
+    \n
+    \n
+        **priority-3 issues** have a **normal or moderate** level of priority. Most of your issues will probably fall under this category. They need to be resolved within the month but are not as severe as critical or high-priority bugs. These bugs may affect specific functionalities or impact a subset of users, but they do not hinder the core functionality of the system. \n
+    \n
+    \n
+        **priority-4 issues** are of **lower priority** and typically encompass minor issues, cosmetic defects, or non-critical enhancements. These bugs do not significantly impact functionality or user experience and can be deferred to a later stage or addressed during regular maintenance cycles. Minor cosmetic issues, small copy or styling issues all fall under this category. \n 
+        "
+      multiple: false
+      options:
+        - Priority-1 (Critical e.g. the website is down, multiple users unable to log into platform)
+        - Priority-2 (High e.g. Core functionality is not working)
+        - Priority-3 (Normal e.g. Functionality is not working for a subset of users)
+        - Priority-4 (Low e.g. Content is not perfectly aligned)
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: "Describe the bug and the expected behaviour."
+      description: "A clear and concise description of the bug you're experiencing and of what you expected to happen."
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: "Steps To Reproduce"
+      description: "Steps to reproduce the behavior."
+      placeholder: |
+        1. In this environment...
+        2. With this config...
+        3. Run '...'
+        4. See error...
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: "Screenshots or a link to a Loom Recording"
+      description: |
+        Links? References? Anything that will give us more context about the issue you are encountering!
+
+        Tip: You can attach images or log files by clicking this area to highlight it and then dragging files in.
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: "What browsers are you seeing the problem on?"
+      multiple: true
+      options:
+        - Firefox
+        - Chrome
+        - Safari
+        - Microsoft Edge
+        - Other
+  - type: textarea
+    attributes:
+      label: "Anything else?"
+      description: |
+        Add any other information you think might be relevant or provide context.
+    validations:
+      required: false

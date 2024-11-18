@@ -2,7 +2,7 @@
   "eslint.workingDirectories": ["client", "server"],
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
   "editor.detectIndentation": false,
   "editor.tabSize": 2,

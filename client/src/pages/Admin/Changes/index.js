@@ -89,7 +89,10 @@ const Changes = () => {
                       color: 'primaryMain',
                       icon: 'forwardArrow',
                     }}
-                    to={R.SUPER_ADMIN.EDIT_STEP.replace(':id', change.stepId)}
+                    to={R.SUPER_ADMIN.EDIT_STEP.replace(
+                      ':slug',
+                      change.stepSlug
+                    )}
                   />
                 </>
               )}

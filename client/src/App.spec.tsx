@@ -4,7 +4,7 @@ import App, { history } from './App';
 
 function renderApp() {
   history.push('/');
-  const { asFragment } = render(<App />);
+  const { asFragment } = render(<App ReactGA={() => {}} />);
   return asFragment;
 }
 

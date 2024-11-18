@@ -19,7 +19,7 @@ router.get('/', getSteps);
 
 router.patch('/order', updateStepsOrder);
 
-router.get('/:id', getStep);
+router.get('/:slug', getStep);
 
 router.patch(
   '/:id',

@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
 import { message } from 'antd';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Typography as T } from '../../components';
 import { LandingPage } from '../../api-calls';
-import { useLanguage } from '../../helpers';
-import { usePublicOrg } from '../../context/public-org';
+import { Typography as T } from '../../components';
 import Logo from '../../components/assets/Logo.png';
 import { navRoutes } from '../../constants';
+import { usePublicOrg } from '../../context/public-org';
+import { useLanguage } from '../../helpers';
 
 import * as S from './style';
 
@@ -31,6 +31,8 @@ const LandingContent = ({ uniqueSlug }) => {
   const { lng } = useLanguage();
 
   const { publicOrg } = usePublicOrg();
+  const logo = publicOrg?.logoUrl || Logo;
+
   const [landingContent, setLandingContent] = useState({});
   const [fetchError, setFetchError] = useState('');
 
@@ -71,15 +73,15 @@ const LandingContent = ({ uniqueSlug }) => {
               publicOrg.uniqueSlug
             )}
           >
-            <img src={publicOrg?.logoUrl || Logo} alt="logo" />
+            {logo && <img src={logo} alt="hyde-logo" />}
           </S.LogoContainer>
           <S.HeaderText>
             {fetchError ? (
               <T.P color="error">{fetchError}</T.P>
             ) : (
-              <T.H2 weight="bold" color="white">
+              <T.H1 weight="bold" color="white">
                 {landingContent.headline}
-              </T.H2>
+              </T.H1>
             )}
           </S.HeaderText>
         </S.HeaderContent>

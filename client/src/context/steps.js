@@ -10,42 +10,48 @@ const storeStepsIntoStorage = (steps) => {
   localStorage.setItem('steps', JSON.stringify(steps));
 };
 
-// TO DO -> WILL NEED TO CHANGE TO THINGS AND TIPS
-const compareCheckListItems = (
-  checkListItemsFromLocal = [],
-  checkListItems = []
-) => {
-  const updatedCheckListItems = checkListItems.map((checkListItem) => {
-    const existing = checkListItemsFromLocal.find(
-      (checkListItemFromLocal) =>
-        checkListItem.title === checkListItemFromLocal.title
-    );
-    if (existing) {
-      return {
-        ...checkListItem,
-        isChecked: existing.isChecked,
-      };
-    }
-    return checkListItem;
-  });
-  return updatedCheckListItems;
+const compareCheckListItems = (stepFromLocal = [], step) => {
+  const updateChecklist = (existingList, newList) => {
+    return newList.map((newItem, i) => {
+      const existing = existingList?.[i];
+
+      if (existing) {
+        return {
+          ...newItem,
+          isChecked: existing.isChecked,
+        };
+      }
+      return newItem;
+    });
+  };
+
+  const updatedThingsYouWillNeed = updateChecklist(
+    stepFromLocal.thingsYouWillNeed,
+    step.thingsYouWillNeed
+  );
+
+  const updatedWhatYouWillNeedToKnow = updateChecklist(
+    stepFromLocal.whatYouWillNeedToKnow,
+    step.whatYouWillNeedToKnow
+  );
+
+  return { updatedThingsYouWillNeed, updatedWhatYouWillNeedToKnow };
 };
 
 // compare two objects and add or remove properties based on the first object
 const updateStepsInStorage = (stepsFromLocal, newSteps) => {
   const updatedSteps = newSteps.map((newStep) => {
-    const existing = stepsFromLocal.find((step) => newStep.id === step.id);
+    const existingStep = stepsFromLocal.find((step) => newStep.id === step.id);
 
-    if (existing) {
-      const updatedChecklist = compareCheckListItems(
-        existing.checklist,
-        newStep.checklist
-      );
+    if (existingStep) {
+      const { updatedThingsYouWillNeed, updatedWhatYouWillNeedToKnow } =
+        compareCheckListItems(existingStep, newStep);
 
       return {
         ...newStep,
-        checklist: updatedChecklist,
-        isCompleted: existing.isCompleted,
+        thingsYouWillNeed: updatedThingsYouWillNeed,
+        whatYouWillNeedToKnow: updatedWhatYouWillNeedToKnow,
+        isCompleted: existingStep.isCompleted,
       };
     }
     return newStep;
@@ -137,29 +143,54 @@ const StepsProvider = ({ children, ...props }) => {
     setStepsObj(_stepsObj);
   }, [justCompletedId, steps, i18n, lng]);
 
-  const checkUncheckItem = (stepId, itemKey) => {
+  const checkUncheckItem = (stepId, index, key) => {
     setSteps((prevSteps) => {
       const newSteps = prevSteps.map((step) => {
         if (step.id === stepId) {
           const newStep = { ...step };
 
-          let uncheckedSteps = step.checklist.length;
-          const newCheckListItems = step.checklist.map((item) => {
-            const newItem = { ...item };
+          let uncheckedStepsThingsYouWillNeed = step?.thingsYouWillNeed?.length;
+          const newCheckListItemsThingsYouWillNeed = step.thingsYouWillNeed.map(
+            (item, checklistIndex) => {
+              const newItem = { ...item };
 
-            if (newItem.title === itemKey) {
-              newItem.isChecked = !item.isChecked;
+              if (checklistIndex === index && key === 'thingsYouWillNeed') {
+                newItem.isChecked = !item.isChecked;
+              }
+
+              if (newItem.isChecked) {
+                uncheckedStepsThingsYouWillNeed--;
+              }
+
+              return newItem;
             }
+          );
 
-            if (newItem.isChecked) {
-              uncheckedSteps--;
-            }
+          newStep.thingsYouWillNeed = newCheckListItemsThingsYouWillNeed;
 
-            return newItem;
-          });
+          let uncheckedStepsWhatYouWillNeedToKnow =
+            step?.whatYouWillNeedToKnow?.length;
+          const newCheckListItemsWhatYouWillNeedToKnow =
+            step.whatYouWillNeedToKnow.map((item, checklistIndex) => {
+              const newItem = { ...item };
 
-          newStep.checklist = newCheckListItems;
-          newStep.isCompleted = uncheckedSteps === 0;
+              if (checklistIndex === index && key === 'whatYouWillNeedToKnow') {
+                newItem.isChecked = !item.isChecked;
+              }
+
+              if (newItem.isChecked) {
+                uncheckedStepsWhatYouWillNeedToKnow--;
+              }
+
+              return newItem;
+            });
+
+          newStep.whatYouWillNeedToKnow =
+            newCheckListItemsWhatYouWillNeedToKnow;
+
+          newStep.isCompleted =
+            uncheckedStepsThingsYouWillNeed === 0 &&
+            uncheckedStepsWhatYouWillNeedToKnow === 0;
           return newStep;
         }
         return { ...step };
@@ -174,12 +205,23 @@ const StepsProvider = ({ children, ...props }) => {
     setSteps((prevSteps) => {
       const newSteps = prevSteps.map((step) => {
         if (step.id === stepId) {
-          const newChecklist = step.checklist.map((item) => ({
+          const thingsYouWillNeed = step.thingsYouWillNeed.map((item) => ({
             ...item,
             isChecked: true,
           }));
+          const whatYouWillNeedToKnow = step.whatYouWillNeedToKnow.map(
+            (item) => ({
+              ...item,
+              isChecked: true,
+            })
+          );
 
-          return { ...step, checklist: newChecklist, isCompleted: true };
+          return {
+            ...step,
+            thingsYouWillNeed,
+            whatYouWillNeedToKnow,
+            isCompleted: true,
+          };
         }
         return { ...step };
       });

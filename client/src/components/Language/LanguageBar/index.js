@@ -46,6 +46,7 @@ const Desktop = ({
                 icon: 'backArrow',
                 pointer: true,
               }}
+              aria-label="Back"
             />
           )}
 
@@ -144,6 +145,7 @@ const Desktop = ({
               icon: 'backArrowRTL',
               pointer: true,
             }}
+            aria-label="Back"
             isButton
           />
         )}
@@ -154,7 +156,16 @@ const Desktop = ({
   return dir === 'rtl' ? RTL : LTR;
 };
 
-const Tablet = ({ dir, showBack, handleHide, lng, lngFull, accessibility }) => {
+const Tablet = ({
+  dir,
+  showBack,
+  handleHide,
+  lng,
+  lngFull,
+  accessibility,
+  increaseTextSize,
+  decreaseTextSize,
+}) => {
   const navigate = useNavigate();
   const { isFontLarge, setIsFontLarge } = useAccessibility();
   const goBack = () => {
@@ -171,6 +182,7 @@ const Tablet = ({ dir, showBack, handleHide, lng, lngFull, accessibility }) => {
             icon: 'backArrow',
             pointer: true,
           }}
+          aria-label="Back"
         />
       )}
       <S.ButtonWrapper>
@@ -199,6 +211,7 @@ const Tablet = ({ dir, showBack, handleHide, lng, lngFull, accessibility }) => {
           iconProps={{
             icon: 'textSize',
           }}
+          aria-label={isFontLarge ? decreaseTextSize : increaseTextSize}
           {...props}
         />
         <TextWithIcon
@@ -242,6 +255,7 @@ const Tablet = ({ dir, showBack, handleHide, lng, lngFull, accessibility }) => {
           iconProps={{
             icon: 'textSize',
           }}
+          aria-label={isFontLarge ? decreaseTextSize : increaseTextSize}
           {...props}
         />
         <TextWithIcon
@@ -262,6 +276,7 @@ const Tablet = ({ dir, showBack, handleHide, lng, lngFull, accessibility }) => {
             icon: 'backArrowRTL',
             pointer: true,
           }}
+          aria-label="Back"
           isButton
         />
       )}

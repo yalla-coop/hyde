@@ -1,22 +1,22 @@
-import { useRef, useReducer, useEffect, useState } from 'react';
+import { useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
-  Grid as G,
-  Typography as T,
-  Inputs as I,
   Button,
+  Grid as G,
+  Inputs as I,
   Modal,
+  Typography as T,
 } from '../../../components';
 
+import GeneralTips from './GeneralTips';
 import ThingsYouWillNeed from './ThingsYouWillNeed';
 import WhatYouWillNeedToKnow from './WhatYouWillNeedToKnow';
-import GeneralTips from './GeneralTips';
 
-import { StepForm as validate } from '../../../validation/schemas';
 import { Steps } from '../../../api-calls';
-import { whereDoYouNeedToGoTypes } from '../../../constants/data-types';
 import { navRoutes } from '../../../constants';
+import { whereDoYouNeedToGoTypes } from '../../../constants/data-types';
 import { useAdminOrg } from '../../../context/admin-org';
+import { StepForm as validate } from '../../../validation/schemas';
 
 const initialState = {
   isOptional: false,
@@ -70,13 +70,15 @@ const StepForm = () => {
     topTip,
   } = state;
 
-  const { id: stepId } = useParams();
+  const { slug } = useParams();
+
+  const stepId = useMemo(() => state.id, [state.id]);
 
   useEffect(() => {
     const getStepData = async () => {
       setState({ loading: true });
-      const { error, data } = await Steps.getStepById({
-        id: stepId,
+      const { error, data } = await Steps.getStepBySlug({
+        slug,
         lng: 'en',
         forPublic: false,
       });
@@ -104,7 +106,7 @@ const StepForm = () => {
     };
 
     getStepData();
-  }, [stepId]);
+  }, [slug]);
 
   useEffect(() => {
     if (submitAttempt.current) {
@@ -169,7 +171,7 @@ const StepForm = () => {
           navRoutes.GENERAL.STEP_ORG.replace(
             ':uniqueSlug',
             adminOrg.uniqueSlug
-          ).replace(':id', stepId),
+          ).replace(':slug', slug),
           '_blank'
         );
       } else {

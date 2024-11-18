@@ -4,9 +4,15 @@ import * as Translation from '../../translations/model';
 
 const getSteps = async ({ lng }) => {
   const steps = await Steps.getSteps(lng);
+
   const stepsT = await translateSteps({
     lng,
-    steps,
+    steps: steps.map(
+      ({ thingsYouWillNeed, whatYouWillNeedToKnow, ...step }) => ({
+        ...step,
+        // ignore thingsYouWillNeed and whatYouWillNeedToKnow, as they should not be translated
+      }),
+    ),
   });
 
   stepsT.forEach((c) => {
@@ -22,9 +28,18 @@ const getSteps = async ({ lng }) => {
   });
 
   const stepsTWithChecklist = stepsT.map((step) => {
+    const originalStep = steps.find((s) => s.id === step.id);
     return {
       ...step,
       id: step.id,
+      thingsYouWillNeed: originalStep.thingsYouWillNeed.map((item) => ({
+        ...item,
+        stage: 'thingsYouWillNeed',
+      })),
+      whatYouWillNeedToKnow: originalStep.whatYouWillNeedToKnow.map((item) => ({
+        ...item,
+        stage: 'whatYouWillNeedToKnow',
+      })),
     };
   });
 

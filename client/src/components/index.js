@@ -11,6 +11,7 @@ import HelpButton from './HelpButton';
 import * as Cards from './Cards';
 import Modal from './Modal';
 import OrganisationLogo from './OrganisationLogo';
+import Loading from './Loading';
 
 export {
   Button,
@@ -26,4 +27,5 @@ export {
   HelpButton,
   Cards,
   OrganisationLogo,
+  Loading,
 };

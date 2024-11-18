@@ -38,6 +38,19 @@ const PasswordTipsContent = (
     </T.P>
   </div>
 );
+
+const BackupEmailTipsContent = (
+  <div>
+    <T.P color="neutralMain" weight="bold">
+      To ensure seamless access and security, consider using an email address
+      within your organization's domain as the backup email.
+      <br />
+      This way, even if you leave the organization, they can still access your
+      account and maintain control of the account.
+    </T.P>
+  </div>
+);
+
 const initialState = {
   firstName: '',
   lastName: '',
@@ -200,16 +213,21 @@ const SignUp = () => {
       <Row mt="6">
         <Col w={[4, 11, 6]}>
           <I.BasicInput
+            mb={2}
             label="Back up email address"
             placeholder="Type your backup email..."
             margins={{ mt: '2', mb: '1' }}
             type="email"
             name="backupEmail"
             value={backupEmail}
+            onFocus={() => setState({ showBackupEmailTip: true })}
             handleChange={(input) => setState({ backupEmail: input })}
             error={validationErrs.backupEmail}
             helper="Enter your prefer back up email address in the event you leave the organisation"
           />
+          {state?.showBackupEmailTip && (
+            <Cards.Tips tips={[BackupEmailTipsContent]} startingColor={1} />
+          )}
         </Col>
       </Row>
       <Row mt="6">
@@ -237,7 +255,9 @@ const SignUp = () => {
             error={validationErrs.password}
           />
 
-          {passwordTipVisible && <Cards.Tips tips={[PasswordTipsContent]} />}
+          {passwordTipVisible && (
+            <Cards.Tips tips={[PasswordTipsContent]} startingColor={3} />
+          )}
         </Col>
       </Row>
       <Row mt="4">

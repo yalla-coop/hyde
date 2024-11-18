@@ -1,7 +1,7 @@
 import { Spin } from 'antd';
 
 const Loading = ({ type }) => {
-  if (type === 'page)')
+  if (type === 'page')
     return (
       <Spin
         size="large"

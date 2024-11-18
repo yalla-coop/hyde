@@ -1,13 +1,12 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as Sentry from '@sentry/react';
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 import { BrowserTracing } from '@sentry/tracing';
 import './i18n';
-// import ReactGA from 'react-ga';
+
 import ErrorBoundary from './ErrorBoundary';
 
 if (process.env.NODE_ENV === 'production') {
@@ -20,14 +19,13 @@ if (process.env.NODE_ENV === 'production') {
 
   // GOOGLE ANALYTICS
   ReactGA.initialize(process.env.REACT_APP_ANALYTICS_ID);
-  ReactGA.pageview(window.location.pathname + window.location.search);
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ErrorBoundary>
     {/* <React.StrictMode> */}
-    <App />
+    <App ReactGA={ReactGA} />
     {/* </React.StrictMode> */}
   </ErrorBoundary>
 );

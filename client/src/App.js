@@ -15,13 +15,15 @@ import { CommonProvider } from './context/common';
 import hotJarConfig from './hotJarConfig';
 import 'antd/dist/antd.css';
 import CookieBot from 'react-cookiebot';
+import GoogleAnalytics from './GoogleAnalytics';
+
 const domainGroupId = 'b3a35499-2627-481c-8669-f1ee39a3071c';
 
 export const history = createBrowserHistory({ basename: window.BASE_URL });
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-function App() {
+function App({ ReactGA }) {
   useEffect(() => {
     if (isProduction) {
       hotJarConfig(
@@ -46,6 +48,10 @@ function App() {
           <AuthProvider>
             <Router basename={process.env.PUBLIC_URL}>
               <StepsProvider>
+                <GoogleAnalytics
+                  isProduction={isProduction}
+                  ReactGA={ReactGA}
+                />
                 <ScrollToTop />
                 <Routes>
                   <Route

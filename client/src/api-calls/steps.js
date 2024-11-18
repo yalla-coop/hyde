@@ -12,9 +12,9 @@ const editStep = async ({ id, form, options } = {}) => {
     return { error: err };
   }
 };
-const getStepById = async ({ id, lng, forPublic, options = {} } = {}) => {
+const getStepBySlug = async ({ slug, lng, forPublic, options = {} } = {}) => {
   try {
-    const { data } = await axios.get(`${STEPS_BASE}/${id}`, {
+    const { data } = await axios.get(`${STEPS_BASE}/${slug}`, {
       params: { lng, forPublic },
     });
     return { data };
@@ -45,4 +45,4 @@ const updateSteps = async ({ options, data }) => {
   }
 };
 
-export { getStepsContent, editStep, getStepById, updateSteps };
+export { getStepsContent, editStep, getStepBySlug, updateSteps };

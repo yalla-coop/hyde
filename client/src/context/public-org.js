@@ -4,6 +4,7 @@ import { Organisations } from '../api-calls';
 import { Outlet, matchPath, useLocation } from 'react-router-dom';
 import B from '../constants/benefit-calculator';
 import { GENERAL } from './../constants/nav-routes';
+import { Loading } from '../components';
 
 import setColor from '../helpers/set-color-variations';
 import formatColor from '../helpers/format-color';
@@ -13,12 +14,13 @@ import colors from '../theme/colors';
 const initialPublicOrgState = {
   id: null,
   logoUrl: '',
-  uniqueSlug: '',
+  uniqueSlug: 'hyde-housing',
   colors: colors,
   contactLinks: [],
   benefitCalculatorLink: B.BENEFIT_CALCULATOR_LINK,
   benefitCalculatorLabel: B.BENEFIT_CALCULATOR_LABEL,
   organisationName: '',
+  loading: true,
 };
 
 const PublicOrgContext = createContext({
@@ -86,9 +88,10 @@ const PublicOrg = (props) => {
         ...data,
         colors: updatedColors(data.colors || defaultColors),
         useBlockColors: data?.colors?.useBlockColors || false,
+        loading: false,
       });
     } else {
-      _setPublicOrg(initialPublicOrgState);
+      _setPublicOrg({ ...initialPublicOrgState, loading: false });
     }
   };
 
@@ -104,6 +107,7 @@ const PublicOrg = (props) => {
     setPublicOrg: _setPublicOrg,
   };
 
+  if (publicOrg.loading) return <Loading type="page" />;
   return (
     <ThemeProvider theme={(theme) => adjustedTheme(theme, publicOrg.colors)}>
       <PublicOrgContext.Provider value={value} {...props} />
