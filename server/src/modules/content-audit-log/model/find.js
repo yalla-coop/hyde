@@ -6,6 +6,7 @@ const getChangesLog = async () => {
       cal.id,
       cal.user_id,
       cal.step_id,
+      cal.step_slug,
       cal.landing_page_content_id,
       cal.type,
       cal.updated_content,

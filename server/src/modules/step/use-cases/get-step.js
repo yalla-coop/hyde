@@ -2,8 +2,8 @@ import * as Steps from '../model';
 import translateSteps from '../../../services/translation/translate-steps';
 import * as Translation from '../../translations/model';
 
-const getStep = async ({ id, lng, forPublic }) => {
-  const step = await Steps.getStepById(id, lng);
+const getStep = async ({ slug, lng, forPublic }) => {
+  const step = await Steps.getStepBySlug(slug, lng);
   if (!forPublic) {
     return step;
   }
