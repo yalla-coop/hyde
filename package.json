@@ -2,10 +2,6 @@
   "name": "hyde-universal-credit-support",
   "version": "0.0.0",
   "private": false,
-  "engines": {
-    "node": "14.x",
-    "npm": "6.x"
-  },
   "scripts": {
     "dev": "concurrently --kill-others-on-fail \"cd client && npm start\" \"cd server && npm run dev\"",
     "dev:server": "cd server && npm run start",
