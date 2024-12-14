@@ -75,6 +75,7 @@ const EXTERNAL = {
     'https://www.apple.com/uk/accessibility/#:~:text=AssistiveTouch%20%2B%20Apple%20Watch,-AssistiveTouch%20for%20Apple&text=Answer%20incoming%20calls%2C%20control%20an,Centre%2C%20Control%20Centre%20and%20more.&text=You%20can%20also%20use%20AssistiveTouch,Control%20settings%20on%20your%20iPhone.',
   ANDROID_ACCESSIBILITY:
     'https://support.google.com/accessibility/android/answer/6006564?hl=en',
+  COST_OF_LIVING: 'https://col-helper.co.uk/',
 };
 
 export { GENERAL, EXTERNAL, ADMIN, SUPER_ADMIN };

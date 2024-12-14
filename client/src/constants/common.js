@@ -11,6 +11,7 @@ const common = {
     seeMore: 'See more',
     seeLess: 'See less',
     addColourOverlay: 'Add colour overlay',
+    exploreCostOfLiving: 'Explore Cost of Living Tips',
   },
   generalSentence: {
     ThisCanIncludeThingsLike: 'This can include things like:',
@@ -91,6 +92,11 @@ const common = {
       searchVoiceAloudReader:
         'Choose your device when you download. Or go to your Apple App store and search Voice Aloud Reader',
       changeFont: 'Change font',
+    },
+    costOfLivingHelper: {
+      title: 'Discover Expert Tips with Our Cost of Living Helper',
+      description:
+        'Access practical advice, from budgeting tips to cost-cutting strategies, with the Cost of Living Helper. Our tool is designed to help you adapt and thrive during tough financial times.',
     },
   },
 };

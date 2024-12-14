@@ -16,6 +16,7 @@ import { stageTypes } from './../../constants/data-types';
 import { usePublicOrg } from './../../context/public-org';
 import LandingContent from './LandingContent';
 import * as S from './style';
+import CostOfLivingCard from './CostOfLivingCard';
 
 const Home = () => {
   const { t } = useTranslation();
@@ -230,6 +231,7 @@ const Home = () => {
             />
           );
         })}
+      <CostOfLivingCard />
       <HelpButton />
       <S.Section>
         <Image
