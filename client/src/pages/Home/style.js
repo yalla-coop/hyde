@@ -10,7 +10,7 @@ export const PageHead = styled.header`
   justify-content: center;
   background: ${({ theme }) => theme.gradients.primary};
   background-color: ${({ theme }) => theme.gradients.primaryMain};
-  background-image:${({ showBGImage }) =>
+  background-image: ${({ showBGImage }) =>
     showBGImage && `url(${backgroundLogo})`};
   background-position: center;
   background-size: cover;
@@ -20,7 +20,7 @@ export const PageHead = styled.header`
 
   ${({ theme }) => theme.media.mobile} {
     padding-top: ${({ theme: { spacings } }) => spacings[11]};
-    padding-bottom: ${({ theme: { spacings } }) => spacings[7]}};
+    padding-bottom: ${({ theme: { spacings } }) => spacings[7]};
     display: flex;
     justify-content: flex-start;
   }
@@ -101,4 +101,34 @@ export const LogoContainer = styled(Link)`
     height: 100%;
     object-fit: contain;
   }
+`;
+
+export const FullSection = styled.div`
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 56px;
+  padding: ${({ theme }) => `${theme.spacings[7]}`};
+  background: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: ${({ theme, color }) => color ?? theme.colors.neutralSurface};
+  ${({ theme }) => theme.media.mobile} {
+    margin-top: 24px;
+    padding: ${({ theme }) => `${theme.spacings[5]} 37.5px`};
+  }
+`;
+
+export const CardContentWrapper = styled.div`
+  max-width: 583px;
+  width: 100%;
+`;
+
+export const CostOfLivingLink = styled(T.Link)`
+  border: none;
+  outline: none;
+  background: ${({ theme }) => theme.colors.primaryMain};
+  cursor: pointer;
+  width: 100%;
 `;
