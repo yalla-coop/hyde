@@ -36,7 +36,6 @@
     "react-responsive": "^10.0.0",
     "react-router-dom": "^6.4.3",
     "react-scripts": "^5.0.1",
-    "video.js": "^7.20.3",
     "web-vitals": "^3.0.4"
   },
   "scripts": {
