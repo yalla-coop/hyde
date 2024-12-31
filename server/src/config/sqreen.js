@@ -4,13 +4,13 @@ const envVarsSchema = yup
   .object({
     SQREEN_APP_NAME: yup.string().when('NODE_ENV', {
       is: 'production',
-      then: yup.string().required(),
-      otherwise: yup.string(),
+      then: (schema) => schema.required(),
+      otherwise: (schema) => schema.notRequired(),
     }),
     SQREEN_TOKEN: yup.string().when('NODE_ENV', {
       is: 'production',
-      then: yup.string().required(),
-      otherwise: yup.string(),
+      then: (schema) => schema.required(),
+      otherwise: (schema) => schema.notRequired(),
     }),
   })
   .required();

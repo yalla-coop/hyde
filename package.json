@@ -25,7 +25,7 @@
     "heroku-postbuild": "npm run init:both && npm run build"
   },
   "dependencies": {
-    "concurrently": "^6.5.1",
+    "concurrently": "^9.1.2",
     "cross-env": "^7.0.3"
   }
 }

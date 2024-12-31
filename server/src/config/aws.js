@@ -4,28 +4,28 @@ const envVarsSchema = yup
   .object({
     BUCKET: yup.string().when('NODE_ENV', {
       is: 'test',
-      then: yup.string(),
-      otherwise: yup.string().required(),
+      then: (schema) => schema.notRequired(),
+      otherwise: (schema) => schema.required(),
     }),
     BUCKET_REGION: yup.string().when('NODE_ENV', {
       is: 'test',
-      then: yup.string(),
-      otherwise: yup.string().required(),
+      then: (schema) => schema.notRequired(),
+      otherwise: (schema) => schema.required(),
     }),
     AWS_ACCESS_KEY_ID: yup.string().when('NODE_ENV', {
       is: 'test',
-      then: yup.string(),
-      otherwise: yup.string().required(),
+      then: (schema) => schema.notRequired(),
+      otherwise: (schema) => schema.required(),
     }),
     AWS_SECRET_ACCESS_KEY: yup.string().when('NODE_ENV', {
       is: 'test',
-      then: yup.string(),
-      otherwise: yup.string().required(),
+      then: (schema) => schema.notRequired(),
+      otherwise: (schema) => schema.required(),
     }),
     AWS_REGION: yup.string().when('NODE_ENV', {
       is: 'test',
-      then: yup.string(),
-      otherwise: yup.string().required(),
+      then: (schema) => schema.notRequired(),
+      otherwise: (schema) => schema.required(),
     }),
   })
   .required();

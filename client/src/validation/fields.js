@@ -164,8 +164,11 @@ export const goalsArrayAtLeastOne = array()
 
 export const biography = string().when('useMeanBio', {
   is: false,
-  then: requiredText,
-  otherwise: optionalText,
+  then: (schema) =>
+    schema
+      .typeError(errMsgs.DEFAULT_REQUIRED)
+      .required(errMsgs.DEFAULT_REQUIRED),
+  otherwise: (schema) => schema.typeError(errMsgs.DEFAULT_REQUIRED).nullable(),
 });
 
 export const optionalCheckbox = boolean()
@@ -174,12 +177,13 @@ export const optionalCheckbox = boolean()
 
 export const videoLink = string().when('video', {
   is: (v) => v.name && v.key && v.url,
-  then: optionalText,
-  otherwise: string()
-    .matches(URLregex, {
-      message: errMsgs.INVALID_LINK,
-    })
-    .required(errMsgs.DEFAULT_REQUIRED),
+  then: (schema) => schema.typeError(errMsgs.DEFAULT_REQUIRED).nullable(),
+  otherwise: (schema) =>
+    schema
+      .matches(URLregex, {
+        message: errMsgs.INVALID_LINK,
+      })
+      .required(errMsgs.DEFAULT_REQUIRED),
 });
 
 export const numberField = number()
@@ -188,8 +192,11 @@ export const numberField = number()
 
 export const optionalRate = number().when('noDemos', {
   is: true,
-  then: number().nullable(),
-  otherwise: numberField,
+  then: (schema) => schema.nullable(),
+  otherwise: (schema) =>
+    schema
+      .typeError(errMsgs.DEFAULT_REQUIRED)
+      .required(errMsgs.DEFAULT_REQUIRED),
 });
 
 export const textMax300Required = string()
@@ -199,10 +206,27 @@ export const textMax300Required = string()
 
 // step form
 
+// export const optionalPhoneNumber = string().when((value, schema) => {
+//   if (value) {
+//     return schema.phone();
+//   }
+//   return schema.nullable();
+// });
+
 export const linkOrPhone = string().when('type', {
   is: whereDoYouNeedToGoTypes.PHONE,
-  then: optionalPhoneNumber,
-  otherwise: urlOptional,
+  then: (schema) =>
+    schema.when((value, schema) => {
+      if (value) {
+        return schema.phone();
+      }
+      return schema.nullable();
+    }),
+  otherwise: (schema) =>
+    schema.matches(URLregex, {
+      message: errMsgs.INVALID_LINK,
+      excludeEmptyString: true,
+    }),
 });
 
 export const whereDoYouNeedToGo = object().shape({
@@ -219,6 +243,7 @@ export const thingsContent = array().of(
     tips: array().of(string().nullable()).nullable(),
   })
 );
+
 export const contactLinks = array()
   .of(
     object().shape({
@@ -227,18 +252,28 @@ export const contactLinks = array()
       description: requiredText,
       link: string().when('type', {
         is: (v) => v === 'WEBCHAT_LINK',
-        then: urlRequired,
-        otherwise: string().nullable(),
+        then: (schema) =>
+          schema
+            .matches(URLregex, {
+              message: errMsgs.INVALID_LINK,
+            })
+            .required(errMsgs.DEFAULT_REQUIRED),
+        otherwise: (schema) => schema.nullable(),
       }),
       phoneNumber: string().when('type', {
         is: (v) => v === 'PHONE',
-        then: string().phone().required(errMsgs.DEFAULT_REQUIRED),
-        otherwise: string().optionalPhone(),
+        then: (schema) => schema.phone().required(errMsgs.DEFAULT_REQUIRED),
+        otherwise: (schema) => schema.optionalPhone(),
       }),
       email: string().when('type', {
         is: (v) => v === 'EMAIL',
-        then: email,
-        otherwise: string().nullable(),
+        then: (schema) =>
+          schema
+            .email(errMsgs.INVALID_EMAIL)
+            .max(100, errMsgs.TOO_LONG_MAX_100)
+            .required(errMsgs.DEFAULT_REQUIRED)
+            .typeError(errMsgs.DEFAULT_REQUIRED),
+        otherwise: (schema) => schema.nullable(),
       }),
     })
   )

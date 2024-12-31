@@ -8,13 +8,13 @@ const envVarsSchema = yup
       .required(),
     APP_URL: yup.string().when('NODE_ENV', {
       is: 'test',
-      then: yup.string(),
-      otherwise: yup.string().required(),
+      then: (schema) => schema.notRequired(),
+      otherwise: (schema) => schema.required(),
     }),
     SENTRY_DNS: yup.string().when('NODE_ENV', {
       is: 'production',
-      then: yup.string().required(),
-      otherwise: yup.string(),
+      then: (schema) => schema.required(),
+      otherwise: (schema) => schema.notRequired(),
     }),
   })
   .required();
