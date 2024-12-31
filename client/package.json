@@ -12,8 +12,8 @@
   "dependencies": {
     "@emotion/react": "^11.13.5",
     "@emotion/styled": "^11.13.5",
-    "@sentry/browser": "^7.120.0",
-    "@sentry/react": "^7.120.0",
+    "@sentry/browser": "^8.47.0",
+    "@sentry/react": "^8.47.0",
     "@sentry/tracing": "^7.17.4",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",

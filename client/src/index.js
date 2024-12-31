@@ -4,7 +4,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as Sentry from '@sentry/react';
 import ReactGA from 'react-ga4';
-import { BrowserTracing } from '@sentry/tracing';
 import './i18n';
 
 import ErrorBoundary from './ErrorBoundary';
@@ -13,7 +12,7 @@ if (process.env.NODE_ENV === 'production') {
   // SENTRY
   Sentry.init({
     dsn: process.env.REACT_APP_SENTRY_DSN,
-    integrations: [new BrowserTracing()],
+    integrations: [browserTracingIntegration()],
     tracesSampleRate: 0.5,
   });
 
